@@ -1,0 +1,9 @@
+*.csv
+*.ini
+*.dta
+*.png
+*.jpeg
+*.RData
+*.Rhistory
+*.pdf
+*.html
