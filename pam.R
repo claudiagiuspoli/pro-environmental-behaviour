@@ -11,13 +11,12 @@ df$X <- NULL
 
 #create subset of climate change questions
 df1 <- df[,4:8] 
-#View(df1)
 
-df1$qb4_3 <- factor(df1$qb4_3, levels = c('1', '2', '3', '4'), ordered = TRUE)
-df1$qb4_5 <- factor(df1$qb4_5, levels = c('1', '2', '3', '4'), ordered = TRUE)
-df1$qb7 <- factor(df1$qb7, levels = c('1', '2', '3', '4'), ordered = TRUE)
-df1$qb8 <- factor(df1$qb8, levels = c('1', '2', '3', '4'), ordered = TRUE)
-df1$qb9 <- factor(df1$qb9, levels = c('1', '2', '3', '4'), ordered = TRUE)
+df1$benefits.for.companies <- factor(df1$benefits.for.companies, levels = c('1', '2', '3', '4'), ordered = TRUE)
+df1$benefits.for.citizens <- factor(df1$benefits.for.citizens, levels = c('1', '2', '3', '4'), ordered = TRUE)
+df1$renewable.energy <- factor(df1$renewable.energy, levels = c('1', '2', '3', '4'), ordered = TRUE)
+df1$energy.efficient <- factor(df1$energy.efficient, levels = c('1', '2', '3', '4'), ordered = TRUE)
+df1$greenhouse.gas <- factor(df1$greenhouse, levels = c('1', '2', '3', '4'), ordered = TRUE)
 
 library(cluster)
 library(dplyr)
@@ -65,38 +64,13 @@ df[pam_fit$medoids, ]
 #join cluster in df 
 pam_fit$silinfo$avg.width
 df$cluster <- pam_fit$clustering
+
+
+df$green-identity[df$green-identity == 1] <- 'moderate'
+df$green-identity[df$green-identity == 2] <- 'extreme'
+
+
 write.csv(df, file = "df-climatechange.csv", row.names = FALSE)
-
-
-
-#One way to visualize many variables in a lower dimensional space is with t-distributed stochastic neighborhood embedding, 
-#or t-SNE. This method is a dimension reduction technique that tries to preserve local structure so as to make clusters visible in a 2D or 3D visualization. 
-
-
-library(cluster)
-library(dplyr)
-library(ggplot2)
-library(readr)
-library(Rtsne)
-
-
-tsne_obj <- Rtsne(gower_dist,  pca = FALSE, verbose = TRUE)
-
-#The k -medoids or partitioning around medoids (PAM) algorithm is a clustering algorithm reminiscent of the k -means algorithm.
-#Partitioning (clustering) of the data into k clusters "around medoids", a more robust version of K-means.
-
-
-tsne_data <- 
-  tsne_obj$Y %>%
-  data.frame() %>%
-  setNames(c("X", "Y")) %>%
-  mutate(cluster = factor(pam_fit$clustering),
-         name = df$personId)
-
-
-
-ggplot(tsne_data, aes(x = X, y = Y)) +
-  geom_point(aes(color = cluster))
 
 
 
