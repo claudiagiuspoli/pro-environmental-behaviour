@@ -9,3 +9,4 @@
 *.html
 *.geojson
 .ipynb_checkpoints/
+*.pptx
