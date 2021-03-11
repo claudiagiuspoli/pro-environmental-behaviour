@@ -1,14 +1,13 @@
 *.csv
 *.ini
-*.dta
 *.png
 *.jpeg
 *.RData
 *.Rhistory
-*.pdf
 *.html
 *.geojson
 .ipynb_checkpoints/
 *.pptx
 presentazione
 bozze
+interpretation
